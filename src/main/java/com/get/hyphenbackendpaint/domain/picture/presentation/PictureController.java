@@ -1,6 +1,5 @@
 package com.get.hyphenbackendpaint.domain.picture.presentation;
 
-import com.get.hyphenbackendpaint.domain.picture.domain.Picture;
 import com.get.hyphenbackendpaint.domain.picture.presentation.dto.request.PictureRequest;
 import com.get.hyphenbackendpaint.domain.picture.presentation.dto.response.PictureResponse;
 import com.get.hyphenbackendpaint.domain.picture.presentation.dto.response.PicturesResponse;
@@ -27,6 +26,12 @@ public class PictureController {
     public ResponseData<Object> create(@RequestBody PictureRequest request, @RequestHeader("Authorization") String token) {
         pictureService.create(token, request);
         return ResponseData.of(HttpStatus.CREATED.value(), SUCCESSFUL_CREATED);
+    }
+
+    @GetMapping("/main")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseData<List<PicturesResponse>> getMainPicture() {
+        return ResponseData.of(HttpStatus.OK.value(), SUCCESSFUL_OK, pictureService.getMainPicture());
     }
 
     @GetMapping("")

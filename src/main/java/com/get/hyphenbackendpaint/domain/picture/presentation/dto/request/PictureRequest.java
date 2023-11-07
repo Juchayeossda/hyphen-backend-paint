@@ -1,6 +1,5 @@
 package com.get.hyphenbackendpaint.domain.picture.presentation.dto.request;
 
-import com.get.hyphenbackendpaint.domain.paint.domain.Paint;
 import com.get.hyphenbackendpaint.domain.picture.domain.Picture;
 import com.get.hyphenbackendpaint.domain.picture.enums.ImageType;
 import com.get.hyphenbackendpaint.global.annotation.EnumValid;

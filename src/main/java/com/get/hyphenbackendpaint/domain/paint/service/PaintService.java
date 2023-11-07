@@ -49,15 +49,15 @@ public class PaintService {
         if (paintRepository.existsByTitle(request.getTitle())) {
             throw AlreadyTitleExistsException.EXCEPTION;
         }
-        Set<Picture> pictures = new HashSet<>();
-        for (Long pictureId : request.getPictures()) {
-            pictures.add(pictureRepository.findById(pictureId).orElseThrow(() -> PictureNotFoundException.EXCEPTION));
-        }
         Set<Tag> tags = new HashSet<>();
         for (Long tagId : request.getTags()) {
             tags.add(tagRepository.findById(tagId).orElseThrow(() -> TagNotFoundException.EXCEPTION));
         }
-        paintRepository.save(request.toEntity(pictures.isEmpty() ? null : pictures, tags.isEmpty() ? null : tags));
+        Paint paint = paintRepository.save(request.toEntity(tags.isEmpty() ? null : tags));
+        for (Long pictureId : request.getPictures()) {
+            paint.addPicture(pictureRepository.findById(pictureId).orElseThrow(() -> PictureNotFoundException.EXCEPTION));
+        }
+        paintRepository.save(paint);
     }
 
     public List<PaintsResponse> readAll() {

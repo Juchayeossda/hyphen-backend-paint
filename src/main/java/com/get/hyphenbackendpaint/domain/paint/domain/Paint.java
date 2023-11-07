@@ -6,6 +6,7 @@ import com.get.hyphenbackendpaint.global.jpa.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,8 @@ public class Paint extends BaseTimeEntity {
     @PrePersist
     public void prePersist() {
         this.likeCount = this.likeCount == null ? 0 : this.likeCount;
+        this.pictures = this.pictures == null ? new HashSet<>() : this.pictures;
+        this.tags = this.tags == null ? new HashSet<>() : this.tags;
     }
 
     public void changeTitle(String title) {

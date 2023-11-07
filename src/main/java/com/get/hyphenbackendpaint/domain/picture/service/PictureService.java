@@ -3,6 +3,7 @@ package com.get.hyphenbackendpaint.domain.picture.service;
 import com.get.hyphenbackendpaint.domain.paint.domain.Paint;
 import com.get.hyphenbackendpaint.domain.picture.domain.Picture;
 import com.get.hyphenbackendpaint.domain.picture.domain.repository.PictureRepository;
+import com.get.hyphenbackendpaint.domain.picture.enums.ImageType;
 import com.get.hyphenbackendpaint.domain.picture.exception.AlreadyTitleExistsException;
 import com.get.hyphenbackendpaint.domain.picture.exception.PictureNotFoundException;
 import com.get.hyphenbackendpaint.domain.picture.presentation.dto.request.PictureRequest;
@@ -41,6 +42,14 @@ public class PictureService {
             throw AlreadyTitleExistsException.EXCEPTION;
         }
         pictureRepository.save(request.toEntity());
+    }
+
+    public List<PicturesResponse> getMainPicture() {
+        List<PicturesResponse> pictures = new ArrayList<>();
+        for (Picture picture : pictureRepository.findAllByType(ImageType.MAIN).orElseThrow(() -> PictureNotFoundException.EXCEPTION)) {
+            pictures.add(new PicturesResponse(picture.getId(), picture.getTitle(), picture.getContent(), picture.getImage(), picture.getType(), picture.getNumber()));
+        }
+        return pictures;
     }
 
     public List<PicturesResponse> readAll() {

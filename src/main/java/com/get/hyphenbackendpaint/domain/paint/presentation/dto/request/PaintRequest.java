@@ -27,10 +27,9 @@ public class PaintRequest {
     @NotNull(message = TAG_NOT_NULL)
     private List<Long> tags;
 
-    public Paint toEntity(Set<Picture> pictures, Set<Tag> tags) {
+    public Paint toEntity(Set<Tag> tags) {
         return Paint.builder()
-            .title(this.title)
-            .pictures(pictures)
+            .title(title)
             .tags(tags)
             .build();
     }
